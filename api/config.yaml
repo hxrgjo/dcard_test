@@ -3,4 +3,4 @@ db:
   user: "root"
   password: 1234
   dbname: "dcard"
-port: 80
+port: 8080
