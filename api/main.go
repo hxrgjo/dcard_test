@@ -2,8 +2,8 @@ package main
 
 import (
 	"api/model"
+	"api/router"
 	"fmt"
-	"net/http"
 
 	"github.com/gin-gonic/gin"
 	_ "github.com/go-sql-driver/mysql"
@@ -37,8 +37,6 @@ func main() {
 
 func initServer() {
 	r := gin.Default()
-	r.GET("/", func(c *gin.Context) {
-		c.String(http.StatusOK, "OK")
-	})
+	router.Get(r)
 	r.Run(fmt.Sprintf(":%d", config.Port)) // listen and serve on 0.0.0.0:8080
 }
