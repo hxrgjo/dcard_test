@@ -54,3 +54,19 @@ func (handler *ArticleHandler) NewArticle(c *gin.Context) {
 		Message: "success",
 	})
 }
+
+func (handler *ArticleHandler) GetArticles(c *gin.Context) {
+	response, err := handler.Service.List()
+	if err != nil {
+		c.JSON(http.StatusBadRequest, Response{
+			Code:    errorcode.ArticleServiceError,
+			Message: "request fail",
+		})
+		return
+	}
+	c.JSON(http.StatusOK, Response{
+		Data:    response,
+		Code:    CodeSuccess,
+		Message: "success",
+	})
+}

@@ -14,11 +14,3 @@ type Article struct {
 func (Article) TableName() string {
 	return "articles"
 }
-
-func (a *Article) Insert() (err error) {
-	_, err = engine.InsertOne(a)
-	if err != nil {
-		return
-	}
-	return
-}

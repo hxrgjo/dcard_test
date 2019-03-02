@@ -6,7 +6,7 @@ import (
 	"github.com/go-xorm/xorm"
 )
 
-var engine *xorm.Engine
+var db *xorm.Engine
 
 func InitDB(user, password, host, dbName string) (err error) {
 	connStr := fmt.Sprintf(
@@ -14,15 +14,19 @@ func InitDB(user, password, host, dbName string) (err error) {
 		user, password, host, dbName,
 	)
 
-	engine, err = xorm.NewEngine("mysql", connStr)
+	db, err = xorm.NewEngine("mysql", connStr)
 	if err != nil {
 		return
 	}
 
-	err = engine.DB().Ping()
+	err = db.DB().Ping()
 	if err != nil {
 		return
 	}
 
 	return
+}
+
+func GetDB() (engine *xorm.Engine) {
+	return db
 }

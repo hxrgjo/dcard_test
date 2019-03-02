@@ -2,9 +2,10 @@ package service
 
 import (
 	"api/model"
+	"api/repository"
 )
 
-type articleResponse struct {
+type ArticleResponse struct {
 	ID        int64  `json:"id"`
 	Name      string `json:"name"`
 	Content   string `json:"content"`
@@ -13,15 +14,18 @@ type articleResponse struct {
 
 type ArticleService interface {
 	Create(name, content string) (err error)
-	List() (result []articleResponse, err error)
+	List() (result []ArticleResponse, err error)
 	Like(id int64) (err error)
 }
 
 func NewArticleService() ArticleService {
-	return articleService{}
+	return articleService{
+		repository: repository.NewArticleRepository(),
+	}
 }
 
 type articleService struct {
+	repository repository.ArticleRepository
 }
 
 func (service articleService) Create(name, content string) (err error) {
@@ -29,14 +33,32 @@ func (service articleService) Create(name, content string) (err error) {
 		Name:    name,
 		Content: content,
 	}
-	err = article.Insert()
+	service.repository.Insert(&article)
 	if err != nil {
 		return
 	}
 	return
 }
 
-func (service articleService) List() (result []articleResponse, err error) {
+func (service articleService) List() (result []ArticleResponse, err error) {
+
+	// get articles
+	articles, err := service.repository.List()
+	if err != nil {
+		return
+	}
+
+	// convert article model to article response
+	for _, v := range articles {
+		ar := ArticleResponse{
+			ID:        v.ID,
+			Name:      v.Name,
+			Content:   v.Content,
+			LikeCount: v.LikeCount,
+		}
+		result = append(result, ar)
+	}
+
 	return
 }
 

@@ -17,4 +17,5 @@ func Get(r *gin.Engine) {
 	groupAPI := r.Group("/api")
 	groupArticle := groupAPI.Group("/articles")
 	groupArticle.POST("/", articleHandler.NewArticle)
+	groupArticle.GET("/", articleHandler.GetArticles)
 }
