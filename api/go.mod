@@ -7,8 +7,10 @@ require (
 	github.com/gin-gonic/gin v1.3.0
 	github.com/go-sql-driver/mysql v1.4.1
 	github.com/go-xorm/xorm v0.7.1
+	github.com/golang/mock v1.2.0
 	github.com/golang/protobuf v1.3.0 // indirect
 	github.com/mattn/go-isatty v0.0.6 // indirect
+	github.com/smartystreets/goconvey v0.0.0-20190222223459-a17d461953aa
 	github.com/spf13/viper v1.3.1
 	gopkg.in/go-playground/validator.v8 v8.18.2 // indirect
 )

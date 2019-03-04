@@ -13,12 +13,18 @@ const (
 )
 
 type ArticleHandler struct {
-	Service service.ArticleService
+	service service.ArticleService
 }
 
 func NewArticleHandler() ArticleHandler {
 	return ArticleHandler{
-		Service: service.NewArticleService(),
+		service: service.NewArticleService(),
+	}
+}
+
+func NewArticleHandlerWithService(service service.ArticleService) ArticleHandler {
+	return ArticleHandler{
+		service: service,
 	}
 }
 
@@ -40,7 +46,7 @@ func (handler *ArticleHandler) NewArticle(c *gin.Context) {
 		return
 	}
 
-	err = handler.Service.Create(request.Name, request.Conetnet)
+	err = handler.service.Create(request.Name, request.Conetnet)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, Response{
 			Code:    errorcode.ArticleServiceError,
@@ -56,7 +62,7 @@ func (handler *ArticleHandler) NewArticle(c *gin.Context) {
 }
 
 func (handler *ArticleHandler) GetArticles(c *gin.Context) {
-	response, err := handler.Service.List()
+	response, err := handler.service.List()
 	if err != nil {
 		c.JSON(http.StatusBadRequest, Response{
 			Code:    errorcode.ArticleServiceError,
