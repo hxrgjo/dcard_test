@@ -18,4 +18,5 @@ func Get(r *gin.Engine) {
 	groupArticle := groupAPI.Group("/articles")
 	groupArticle.POST("/", articleHandler.NewArticle)
 	groupArticle.GET("/", articleHandler.GetArticles)
+	groupArticle.PATCH("/:id/like", articleHandler.LikeArticle)
 }

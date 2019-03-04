@@ -15,12 +15,18 @@ type ArticleResponse struct {
 type ArticleService interface {
 	Create(name, content string) (err error)
 	List() (result []ArticleResponse, err error)
-	Like(id int64) (err error)
+	Like(id int) (err error)
 }
 
 func NewArticleService() ArticleService {
 	return articleService{
 		repository: repository.NewArticleRepository(),
+	}
+}
+
+func NewArticleServiceWithRepository(repository repository.ArticleRepository) ArticleService {
+	return articleService{
+		repository: repository,
 	}
 }
 
@@ -62,6 +68,10 @@ func (service articleService) List() (result []ArticleResponse, err error) {
 	return
 }
 
-func (service articleService) Like(id int64) (err error) {
+func (service articleService) Like(id int) (err error) {
+	err = service.repository.Like(id)
+	if err != nil {
+		return
+	}
 	return
 }

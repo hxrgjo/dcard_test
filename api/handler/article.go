@@ -4,6 +4,7 @@ import (
 	"api/errorcode"
 	"api/service"
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -72,6 +73,31 @@ func (handler *ArticleHandler) GetArticles(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, Response{
 		Data:    response,
+		Code:    CodeSuccess,
+		Message: "success",
+	})
+}
+
+func (handler *ArticleHandler) LikeArticle(c *gin.Context) {
+	paramID := c.Param("id")
+	id, err := strconv.Atoi(paramID)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, Response{
+			Code:    errorcode.ValidateError,
+			Message: "validate error",
+		})
+		return
+	}
+
+	err = handler.service.Like(id)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, Response{
+			Code:    errorcode.ArticleServiceError,
+			Message: err.Error(),
+		})
+		return
+	}
+	c.JSON(http.StatusOK, Response{
 		Code:    CodeSuccess,
 		Message: "success",
 	})

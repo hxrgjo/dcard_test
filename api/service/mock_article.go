@@ -62,7 +62,7 @@ func (mr *MockArticleServiceMockRecorder) List() *gomock.Call {
 }
 
 // Like mocks base method
-func (m *MockArticleService) Like(id int64) error {
+func (m *MockArticleService) Like(id int) error {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Like", id)
 	ret0, _ := ret[0].(error)
