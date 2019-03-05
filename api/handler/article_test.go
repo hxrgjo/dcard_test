@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"api/mock"
 	"api/service"
 	"bytes"
 	"encoding/json"
@@ -19,7 +20,7 @@ func TestNewArticle(t *testing.T) {
 		// mock article service
 		ctrl := gomock.NewController(t)
 		defer ctrl.Finish()
-		mock := service.NewMockArticleService(ctrl)
+		mock := mock.NewMockArticleService(ctrl)
 		mock.EXPECT().Create("test", "jsonContentccc").Return(nil)
 
 		// new article handler
@@ -54,7 +55,7 @@ func TestGetArticles(t *testing.T) {
 		// mock article service
 		ctrl := gomock.NewController(t)
 		defer ctrl.Finish()
-		mock := service.NewMockArticleService(ctrl)
+		mock := mock.NewMockArticleService(ctrl)
 		mockResponse := []service.ArticleResponse{{
 			Name:      "11",
 			Content:   "content",
@@ -93,7 +94,7 @@ func TestLikeArticle(t *testing.T) {
 		// mock article service
 		ctrl := gomock.NewController(t)
 		defer ctrl.Finish()
-		mock := service.NewMockArticleService(ctrl)
+		mock := mock.NewMockArticleService(ctrl)
 		mock.EXPECT().Like(1).Return(nil)
 
 		// new article handler
