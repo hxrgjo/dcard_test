@@ -57,7 +57,7 @@ Response:
 
 URL: `api/articles/{{id}}/like`
 
-Method: `PUT`
+Method: `PATCH`
 
 Response:
 
