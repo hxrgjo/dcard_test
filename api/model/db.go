@@ -2,6 +2,7 @@ package model
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/go-xorm/xorm"
 )
@@ -19,12 +20,15 @@ func InitDB(user, password, host, dbName string) (err error) {
 		return
 	}
 
-	err = db.DB().Ping()
-	if err != nil {
-		return
+	for {
+		err := db.DB().Ping()
+		if err != nil {
+			fmt.Println("sleep 1 second for db init")
+			time.Sleep(1 * time.Second)
+			continue
+		}
+		return nil
 	}
-
-	return
 }
 
 func GetDB() (engine *xorm.Engine) {
