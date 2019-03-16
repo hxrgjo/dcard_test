@@ -47,6 +47,7 @@ func (service articleService) Create(name, content string) (err error) {
 }
 
 func (service articleService) List() (result []ArticleResponse, err error) {
+	result = make([]ArticleResponse, 0)
 
 	// get articles
 	articles, err := service.repository.List()

@@ -40,7 +40,19 @@ func (a *articleRepository) List() (articles []model.Article, err error) {
 }
 
 func (a *articleRepository) Like(id int) (err error) {
-	result, err := a.db.Exec("UPDATE articles SET like_count = like_count +1 WHERE id = ?", id)
+
+	session := a.db.NewSession()
+	defer session.Close()
+
+	// begin transaction
+	err = session.Begin()
+	if err != nil {
+		return
+	}
+
+	session.Rollback()
+
+	result, err := session.Exec("UPDATE articles SET like_count = like_count +1 WHERE id = ?", id)
 	if err != nil {
 		return
 	}
@@ -51,5 +63,17 @@ func (a *articleRepository) Like(id int) (err error) {
 	if affected == 0 {
 		return errors.New("data not found")
 	}
+
+	affected, err = session.InsertOne(&model.ArticleLike{ArticleID: id})
+	if err != nil {
+		return
+	}
+	if affected == 0 {
+		return
+	}
+
+	// transaction commit
+	session.Commit()
+
 	return
 }
