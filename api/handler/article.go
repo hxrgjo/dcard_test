@@ -25,16 +25,13 @@ func NewArticleHandlerWithService(service service.ArticleService) ArticleHandler
 	}
 }
 
-type NewArticleRequest struct {
-	Name      string `json:"name"`
-	Conetnet  string `json:"content"`
-	LikeCount int    `json:"like_count"`
-}
-
 func (handler *ArticleHandler) NewArticle(c *gin.Context) {
-
-	request := &NewArticleRequest{}
-	err := c.ShouldBindJSON(request)
+	request := struct {
+		Name      string `json:"name"`
+		Conetnet  string `json:"content"`
+		LikeCount int    `json:"like_count"`
+	}{}
+	err := c.ShouldBindJSON(&request)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, Response{
 			Code:    errorcode.ValidateError,

@@ -4,3 +4,4 @@ db:
   password: 1234
   dbname: "dcard"
 port: 8080
+jwtSecret: "test123"

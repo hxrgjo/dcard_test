@@ -23,4 +23,5 @@ func Get(r *gin.Engine) {
 
 	groupUser := groupAPI.Group("/users")
 	groupUser.POST("", userHandler.SignUp)
+	groupUser.POST("/login", userHandler.SignIn)
 }

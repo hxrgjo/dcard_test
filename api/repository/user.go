@@ -9,6 +9,7 @@ import (
 
 type UserRepository interface {
 	CreateUser(email, passwordDigest, name string) (err error)
+	FindByEmail(email string) (user model.User, err error)
 }
 
 func NewUserRepository() UserRepository {
@@ -31,6 +32,13 @@ func (u *userRepository) CreateUser(email, passwordDigest, name string) (err err
 	}
 	if affected, _ := result.RowsAffected(); affected == 0 {
 		return fmt.Errorf("email already exists")
+	}
+	return
+}
+
+func (u *userRepository) FindByEmail(email string) (user model.User, err error) {
+	if _, err = u.db.Where("email = ?", email).Get(&user); err != nil {
+		return
 	}
 	return
 }

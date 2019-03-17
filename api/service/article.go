@@ -18,13 +18,13 @@ type ArticleService interface {
 }
 
 func NewArticleService() ArticleService {
-	return articleService{
+	return &articleService{
 		repository: repository.NewArticleRepository(),
 	}
 }
 
 func NewArticleServiceWithRepository(repository repository.ArticleRepository) ArticleService {
-	return articleService{
+	return &articleService{
 		repository: repository,
 	}
 }
@@ -33,11 +33,11 @@ type articleService struct {
 	repository repository.ArticleRepository
 }
 
-func (service articleService) Create(name, content string) (err error) {
+func (service *articleService) Create(name, content string) (err error) {
 	return service.repository.Insert(name, content)
 }
 
-func (service articleService) List() (result []ArticleResponse, err error) {
+func (service *articleService) List() (result []ArticleResponse, err error) {
 	result = make([]ArticleResponse, 0)
 
 	// get articles
@@ -60,7 +60,7 @@ func (service articleService) List() (result []ArticleResponse, err error) {
 	return
 }
 
-func (service articleService) Like(id int) (err error) {
+func (service *articleService) Like(id int) (err error) {
 	err = service.repository.Like(id)
 	if err != nil {
 		return

@@ -11,7 +11,8 @@ type Config struct {
 		Password string
 		DBName   string
 	}
-	Port int
+	Port      int
+	JWTSecret string
 }
 
 // Initial config from config file
@@ -36,6 +37,7 @@ func readConfig() (config Config, err error) {
 			Password: viper.GetString("db.password"),
 			DBName:   viper.GetString("db.dbname"),
 		},
-		Port: viper.GetInt("port"),
+		Port:      viper.GetInt("port"),
+		JWTSecret: viper.GetString("jwtSecret"),
 	}, nil
 }

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"api/auth"
 	"api/model"
 	"api/router"
 	"fmt"
@@ -30,6 +31,9 @@ func main() {
 	if err != nil {
 		panic("init db error:" + err.Error())
 	}
+
+	// set jwt secret
+	auth.SetSecret(config.JWTSecret)
 
 	// init api server
 	initServer()

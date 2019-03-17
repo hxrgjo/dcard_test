@@ -5,6 +5,7 @@
 package mock
 
 import (
+	model "api/model"
 	gomock "github.com/golang/mock/gomock"
 	reflect "reflect"
 )
@@ -33,15 +34,30 @@ func (m *MockUserRepository) EXPECT() *MockUserRepositoryMockRecorder {
 }
 
 // CreateUser mocks base method
-func (m *MockUserRepository) CreateUser(email, password, name string) error {
+func (m *MockUserRepository) CreateUser(email, passwordDigest, name string) error {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "CreateUser", email, password, name)
+	ret := m.ctrl.Call(m, "CreateUser", email, passwordDigest, name)
 	ret0, _ := ret[0].(error)
 	return ret0
 }
 
 // CreateUser indicates an expected call of CreateUser
-func (mr *MockUserRepositoryMockRecorder) CreateUser(email, password, name interface{}) *gomock.Call {
+func (mr *MockUserRepositoryMockRecorder) CreateUser(email, passwordDigest, name interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateUser", reflect.TypeOf((*MockUserRepository)(nil).CreateUser), email, password, name)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateUser", reflect.TypeOf((*MockUserRepository)(nil).CreateUser), email, passwordDigest, name)
+}
+
+// FindByEmail mocks base method
+func (m *MockUserRepository) FindByEmail(email string) (model.User, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "FindByEmail", email)
+	ret0, _ := ret[0].(model.User)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// FindByEmail indicates an expected call of FindByEmail
+func (mr *MockUserRepositoryMockRecorder) FindByEmail(email interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "FindByEmail", reflect.TypeOf((*MockUserRepository)(nil).FindByEmail), email)
 }
