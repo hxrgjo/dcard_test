@@ -8,7 +8,7 @@ import (
 )
 
 type ArticleRepository interface {
-	Insert(value *model.Article) (err error)
+	Insert(name, content string) (err error)
 	List() (articles []model.Article, err error)
 	Like(id int) (err error)
 }
@@ -23,8 +23,9 @@ type articleRepository struct {
 	db *xorm.Engine
 }
 
-func (a *articleRepository) Insert(value *model.Article) (err error) {
-	_, err = a.db.InsertOne(value)
+func (a *articleRepository) Insert(name, content string) (err error) {
+	article := model.Article{Name: name, Content: content}
+	_, err = a.db.InsertOne(article)
 	if err != nil {
 		return
 	}

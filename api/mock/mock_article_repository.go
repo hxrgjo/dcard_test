@@ -34,17 +34,17 @@ func (m *MockArticleRepository) EXPECT() *MockArticleRepositoryMockRecorder {
 }
 
 // Insert mocks base method
-func (m *MockArticleRepository) Insert(value *model.Article) error {
+func (m *MockArticleRepository) Insert(name, content string) error {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Insert", value)
+	ret := m.ctrl.Call(m, "Insert", name, content)
 	ret0, _ := ret[0].(error)
 	return ret0
 }
 
 // Insert indicates an expected call of Insert
-func (mr *MockArticleRepositoryMockRecorder) Insert(value interface{}) *gomock.Call {
+func (mr *MockArticleRepositoryMockRecorder) Insert(name, content interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Insert", reflect.TypeOf((*MockArticleRepository)(nil).Insert), value)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Insert", reflect.TypeOf((*MockArticleRepository)(nil).Insert), name, content)
 }
 
 // List mocks base method

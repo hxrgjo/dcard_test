@@ -1,7 +1,6 @@
 package service
 
 import (
-	"api/model"
 	"api/repository"
 )
 
@@ -35,15 +34,7 @@ type articleService struct {
 }
 
 func (service articleService) Create(name, content string) (err error) {
-	article := model.Article{
-		Name:    name,
-		Content: content,
-	}
-	service.repository.Insert(&article)
-	if err != nil {
-		return
-	}
-	return
+	return service.repository.Insert(name, content)
 }
 
 func (service articleService) List() (result []ArticleResponse, err error) {

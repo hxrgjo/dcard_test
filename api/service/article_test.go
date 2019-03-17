@@ -16,11 +16,7 @@ func TestCreate(t *testing.T) {
 		ctrl := gomock.NewController(t)
 		defer ctrl.Finish()
 		mock := mock.NewMockArticleRepository(ctrl)
-		article := model.Article{
-			Name:    "test",
-			Content: "content",
-		}
-		mock.EXPECT().Insert(&article).Return(nil)
+		mock.EXPECT().Insert("test", "content").Return(nil)
 
 		r := service.NewArticleServiceWithRepository(mock)
 		err := r.Create("test", "content")
