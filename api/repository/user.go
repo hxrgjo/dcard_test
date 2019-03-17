@@ -2,6 +2,7 @@ package repository
 
 import (
 	"api/model"
+	"fmt"
 
 	"github.com/go-xorm/xorm"
 )
@@ -21,9 +22,15 @@ type userRepository struct {
 }
 
 func (u *userRepository) CreateUser(email, passwordDigest, name string) (err error) {
-	user := model.User{Email: email, PasswordDigest: passwordDigest, Name: name}
-	if _, err = u.db.InsertOne(&user); err != nil {
+	q := `INSERT INTO users(email, password_digest, name, created_at, updated_at)
+	      SELECT ?, ?, ?, NOW(), NOW()
+	      WHERE NOT EXISTS (SELECT 1 FROM users WHERE email = ?)`
+	result, err := u.db.Exec(q, email, passwordDigest, name, email)
+	if err != nil {
 		return
+	}
+	if affected, _ := result.RowsAffected(); affected == 0 {
+		return fmt.Errorf("email already exists")
 	}
 	return
 }

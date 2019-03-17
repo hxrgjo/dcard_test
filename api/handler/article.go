@@ -47,7 +47,7 @@ func (handler *ArticleHandler) NewArticle(c *gin.Context) {
 	if err != nil {
 		c.JSON(http.StatusBadRequest, Response{
 			Code:    errorcode.ArticleServiceError,
-			Message: "request fail",
+			Message: "create failed",
 		})
 		return
 	}
@@ -63,7 +63,7 @@ func (handler *ArticleHandler) GetArticles(c *gin.Context) {
 	if err != nil {
 		c.JSON(http.StatusBadRequest, Response{
 			Code:    errorcode.ArticleServiceError,
-			Message: "request fail",
+			Message: "get list failed",
 		})
 		return
 	}

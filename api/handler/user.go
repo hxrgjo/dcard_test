@@ -46,7 +46,7 @@ func (handler *UserHandler) SignUp(c *gin.Context) {
 	if err != nil {
 		c.JSON(http.StatusBadRequest, Response{
 			Code:    errorcode.ArticleServiceError,
-			Message: "request fail",
+			Message: "sign up failed",
 		})
 		return
 	}
