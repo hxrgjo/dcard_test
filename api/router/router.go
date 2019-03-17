@@ -13,10 +13,14 @@ func Get(r *gin.Engine) {
 	})
 
 	articleHandler := handler.NewArticleHandler()
+	userHandler := handler.NewUserHandler()
 
 	groupAPI := r.Group("/api")
 	groupArticle := groupAPI.Group("/articles")
 	groupArticle.POST("/", articleHandler.NewArticle)
 	groupArticle.GET("/", articleHandler.GetArticles)
 	groupArticle.PATCH("/:id/like", articleHandler.LikeArticle)
+
+	groupUser := groupAPI.Group("/users")
+	groupUser.POST("", userHandler.SignUp)
 }

@@ -12,5 +12,6 @@ require (
 	github.com/mattn/go-isatty v0.0.6 // indirect
 	github.com/smartystreets/goconvey v0.0.0-20190222223459-a17d461953aa
 	github.com/spf13/viper v1.3.1
+	golang.org/x/crypto v0.0.0-20181203042331-505ab145d0a9
 	gopkg.in/go-playground/validator.v8 v8.18.2 // indirect
 )

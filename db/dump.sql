@@ -27,6 +27,7 @@ DROP TABLE IF EXISTS `article_likes`;
 
 CREATE TABLE `article_likes` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL DEFAULT 0,
   `article_id` int(11) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -41,6 +42,7 @@ DROP TABLE IF EXISTS `articles`;
 
 CREATE TABLE `articles` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL DEFAULT 0,
   `name` varchar(50) NOT NULL DEFAULT '',
   `content` varchar(200) NOT NULL DEFAULT '',
   `like_count` int(11) NOT NULL,
@@ -50,6 +52,20 @@ CREATE TABLE `articles` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
+# Dump of table users
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `users`;
+
+CREATE TABLE `users` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `email` varchar(20) NOT NULL DEFAULT '',
+  `password_digest` varchar(200) NOT NULL DEFAULT '',
+  `name` varchar(200) NOT NULL DEFAULT '',
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;

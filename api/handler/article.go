@@ -9,10 +9,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-const (
-	CodeSuccess = 0
-)
-
 type ArticleHandler struct {
 	service service.ArticleService
 }
