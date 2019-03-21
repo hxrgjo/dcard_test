@@ -12,9 +12,9 @@ type ArticleResponse struct {
 }
 
 type ArticleService interface {
-	Create(name, content string) (err error)
+	Create(name, content string, userID int64) (err error)
 	List() (result []ArticleResponse, err error)
-	Like(id int) (err error)
+	Like(id int64, userID int64) (err error)
 }
 
 func NewArticleService() ArticleService {
@@ -33,8 +33,8 @@ type articleService struct {
 	repository repository.ArticleRepository
 }
 
-func (service *articleService) Create(name, content string) (err error) {
-	return service.repository.Insert(name, content)
+func (service *articleService) Create(name, content string, userID int64) (err error) {
+	return service.repository.Insert(name, content, userID)
 }
 
 func (service *articleService) List() (result []ArticleResponse, err error) {
@@ -60,8 +60,8 @@ func (service *articleService) List() (result []ArticleResponse, err error) {
 	return
 }
 
-func (service *articleService) Like(id int) (err error) {
-	err = service.repository.Like(id)
+func (service *articleService) Like(id int64, userID int64) (err error) {
+	err = service.repository.Like(id, userID)
 	if err != nil {
 		return
 	}

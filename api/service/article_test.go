@@ -16,10 +16,10 @@ func TestCreate(t *testing.T) {
 		ctrl := gomock.NewController(t)
 		defer ctrl.Finish()
 		mock := mock.NewMockArticleRepository(ctrl)
-		mock.EXPECT().Insert("test", "content").Return(nil)
+		mock.EXPECT().Insert("test", "content", int64(1)).Return(nil)
 
 		r := service.NewArticleServiceWithRepository(mock)
-		err := r.Create("test", "content")
+		err := r.Create("test", "content", 1)
 		So(err, ShouldBeNil)
 	})
 }
@@ -49,13 +49,15 @@ func TestList(t *testing.T) {
 func TestLike(t *testing.T) {
 	Convey("Test like articles id 1\n", t, func() {
 		// mock article repository
+		// var userID int64
+		// userID = 1
 		ctrl := gomock.NewController(t)
 		defer ctrl.Finish()
 		mock := mock.NewMockArticleRepository(ctrl)
-		mock.EXPECT().Like(1).Return(nil)
+		mock.EXPECT().Like(int64(1), int64(1)).Return(nil)
 
 		r := service.NewArticleServiceWithRepository(mock)
-		err := r.Like(1)
+		err := r.Like(1, 1)
 		So(err, ShouldBeNil)
 	})
 }

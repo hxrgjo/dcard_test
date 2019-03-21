@@ -26,6 +26,15 @@ func NewArticleHandlerWithService(service service.ArticleService) ArticleHandler
 }
 
 func (handler *ArticleHandler) NewArticle(c *gin.Context) {
+	userID, ok := c.Get("user_id")
+	if !ok {
+		c.JSON(http.StatusInternalServerError, Response{
+			Code:    errorcode.ValidateError,
+			Message: "user not valid",
+		})
+		return
+	}
+
 	request := struct {
 		Name      string `json:"name"`
 		Conetnet  string `json:"content"`
@@ -40,7 +49,7 @@ func (handler *ArticleHandler) NewArticle(c *gin.Context) {
 		return
 	}
 
-	err = handler.service.Create(request.Name, request.Conetnet)
+	err = handler.service.Create(request.Name, request.Conetnet, userID.(int64))
 	if err != nil {
 		c.JSON(http.StatusBadRequest, Response{
 			Code:    errorcode.ArticleServiceError,
@@ -72,8 +81,17 @@ func (handler *ArticleHandler) GetArticles(c *gin.Context) {
 }
 
 func (handler *ArticleHandler) LikeArticle(c *gin.Context) {
+	userID, ok := c.Get("user_id")
+	if !ok {
+		c.JSON(http.StatusBadRequest, Response{
+			Code:    errorcode.ValidateError,
+			Message: "user not valid",
+		})
+		return
+	}
+
 	paramID := c.Param("id")
-	id, err := strconv.Atoi(paramID)
+	articleID, err := strconv.ParseInt(paramID, 10, 64)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, Response{
 			Code:    errorcode.ValidateError,
@@ -82,7 +100,7 @@ func (handler *ArticleHandler) LikeArticle(c *gin.Context) {
 		return
 	}
 
-	err = handler.service.Like(id)
+	err = handler.service.Like(articleID, userID.(int64))
 	if err != nil {
 		c.JSON(http.StatusBadRequest, Response{
 			Code:    errorcode.ArticleServiceError,

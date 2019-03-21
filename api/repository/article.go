@@ -8,9 +8,9 @@ import (
 )
 
 type ArticleRepository interface {
-	Insert(name, content string) (err error)
+	Insert(name, content string, userID int64) (err error)
 	List() (articles []model.Article, err error)
-	Like(id int) (err error)
+	Like(id int64, userID int64) (err error)
 }
 
 func NewArticleRepository() ArticleRepository {
@@ -23,8 +23,8 @@ type articleRepository struct {
 	db *xorm.Engine
 }
 
-func (a *articleRepository) Insert(name, content string) (err error) {
-	article := model.Article{Name: name, Content: content}
+func (a *articleRepository) Insert(name, content string, userID int64) (err error) {
+	article := model.Article{Name: name, Content: content, UserID: userID}
 	_, err = a.db.InsertOne(article)
 	if err != nil {
 		return
@@ -40,7 +40,7 @@ func (a *articleRepository) List() (articles []model.Article, err error) {
 	return
 }
 
-func (a *articleRepository) Like(id int) (err error) {
+func (a *articleRepository) Like(id int64, userID int64) (err error) {
 
 	session := a.db.NewSession()
 	defer session.Close()
@@ -65,7 +65,7 @@ func (a *articleRepository) Like(id int) (err error) {
 		return errors.New("data not found")
 	}
 
-	affected, err = session.InsertOne(&model.ArticleLike{ArticleID: id})
+	affected, err = session.InsertOne(&model.ArticleLike{ArticleID: id, UserID: userID})
 	if err != nil {
 		return
 	}

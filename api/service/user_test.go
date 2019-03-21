@@ -1,6 +1,7 @@
 package service_test
 
 import (
+	"api/auth"
 	"api/model"
 	"api/service"
 	"testing"
@@ -28,6 +29,7 @@ func TestSignUp(t *testing.T) {
 }
 
 func TestSignIn(t *testing.T) {
+	auth.SetSecret("test123")
 	Convey("Test sign in", t, func() {
 		ctrl := gomock.NewController(t)
 		defer ctrl.Finish()

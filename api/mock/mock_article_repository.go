@@ -34,17 +34,17 @@ func (m *MockArticleRepository) EXPECT() *MockArticleRepositoryMockRecorder {
 }
 
 // Insert mocks base method
-func (m *MockArticleRepository) Insert(name, content string) error {
+func (m *MockArticleRepository) Insert(name, content string, userID int64) error {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Insert", name, content)
+	ret := m.ctrl.Call(m, "Insert", name, content, userID)
 	ret0, _ := ret[0].(error)
 	return ret0
 }
 
 // Insert indicates an expected call of Insert
-func (mr *MockArticleRepositoryMockRecorder) Insert(name, content interface{}) *gomock.Call {
+func (mr *MockArticleRepositoryMockRecorder) Insert(name, content, userID interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Insert", reflect.TypeOf((*MockArticleRepository)(nil).Insert), name, content)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Insert", reflect.TypeOf((*MockArticleRepository)(nil).Insert), name, content, userID)
 }
 
 // List mocks base method
@@ -63,15 +63,15 @@ func (mr *MockArticleRepositoryMockRecorder) List() *gomock.Call {
 }
 
 // Like mocks base method
-func (m *MockArticleRepository) Like(id int) error {
+func (m *MockArticleRepository) Like(id, userID int64) error {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Like", id)
+	ret := m.ctrl.Call(m, "Like", id, userID)
 	ret0, _ := ret[0].(error)
 	return ret0
 }
 
 // Like indicates an expected call of Like
-func (mr *MockArticleRepositoryMockRecorder) Like(id interface{}) *gomock.Call {
+func (mr *MockArticleRepositoryMockRecorder) Like(id, userID interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Like", reflect.TypeOf((*MockArticleRepository)(nil).Like), id)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Like", reflect.TypeOf((*MockArticleRepository)(nil).Like), id, userID)
 }

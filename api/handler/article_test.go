@@ -21,14 +21,15 @@ func TestNewArticle(t *testing.T) {
 		ctrl := gomock.NewController(t)
 		defer ctrl.Finish()
 		mock := mock.NewMockArticleService(ctrl)
-		mock.EXPECT().Create("test", "jsonContentccc").Return(nil)
+		mock.EXPECT().Create("test", "jsonContentccc", int64(1)).Return(nil)
 
 		// new article handler
 		h := NewArticleHandlerWithService(mock)
 
 		// prepare router
 		router := gin.Default()
-		router.POST("/api/articles", h.NewArticle)
+
+		router.POST("/api/articles", stubMiddleware, h.NewArticle)
 
 		// request
 		reqeustBody := `
@@ -95,14 +96,14 @@ func TestLikeArticle(t *testing.T) {
 		ctrl := gomock.NewController(t)
 		defer ctrl.Finish()
 		mock := mock.NewMockArticleService(ctrl)
-		mock.EXPECT().Like(1).Return(nil)
+		mock.EXPECT().Like(int64(1), int64(1)).Return(nil)
 
 		// new article handler
 		h := NewArticleHandlerWithService(mock)
 
 		// prepare router
 		router := gin.Default()
-		router.PATCH("/api/articles/:id/like", h.LikeArticle)
+		router.PATCH("/api/articles/:id/like", stubMiddleware, h.LikeArticle)
 
 		w := performRequest(router, "PATCH", "/api/articles/1/like", nil)
 
@@ -124,4 +125,9 @@ func performRequest(r http.Handler, method, path string, requestBody []byte) *ht
 	w := httptest.NewRecorder()
 	r.ServeHTTP(w, req)
 	return w
+}
+
+func stubMiddleware(c *gin.Context) {
+	c.Set("user_id", int64(1))
+	c.Next()
 }

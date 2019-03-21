@@ -4,7 +4,6 @@ import (
 	"api/auth"
 	"api/repository"
 	"fmt"
-	"strconv"
 
 	"golang.org/x/crypto/bcrypt"
 )
@@ -49,7 +48,7 @@ func (u *userService) SignIn(email, password string) (token string, err error) {
 		return "", fmt.Errorf("incorrect email or password")
 	}
 
-	token, err = auth.Sign(strconv.FormatInt(user.ID, 10))
+	token, err = auth.Sign(user.ID)
 	if err != nil {
 		return
 	}

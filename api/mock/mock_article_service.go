@@ -34,17 +34,17 @@ func (m *MockArticleService) EXPECT() *MockArticleServiceMockRecorder {
 }
 
 // Create mocks base method
-func (m *MockArticleService) Create(name, content string) error {
+func (m *MockArticleService) Create(name, content string, userID int64) error {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Create", name, content)
+	ret := m.ctrl.Call(m, "Create", name, content, userID)
 	ret0, _ := ret[0].(error)
 	return ret0
 }
 
 // Create indicates an expected call of Create
-func (mr *MockArticleServiceMockRecorder) Create(name, content interface{}) *gomock.Call {
+func (mr *MockArticleServiceMockRecorder) Create(name, content, userID interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Create", reflect.TypeOf((*MockArticleService)(nil).Create), name, content)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Create", reflect.TypeOf((*MockArticleService)(nil).Create), name, content, userID)
 }
 
 // List mocks base method
@@ -63,15 +63,15 @@ func (mr *MockArticleServiceMockRecorder) List() *gomock.Call {
 }
 
 // Like mocks base method
-func (m *MockArticleService) Like(id int) error {
+func (m *MockArticleService) Like(id, userID int64) error {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Like", id)
+	ret := m.ctrl.Call(m, "Like", id, userID)
 	ret0, _ := ret[0].(error)
 	return ret0
 }
 
 // Like indicates an expected call of Like
-func (mr *MockArticleServiceMockRecorder) Like(id interface{}) *gomock.Call {
+func (mr *MockArticleServiceMockRecorder) Like(id, userID interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Like", reflect.TypeOf((*MockArticleService)(nil).Like), id)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Like", reflect.TypeOf((*MockArticleService)(nil).Like), id, userID)
 }
