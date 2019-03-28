@@ -10,8 +10,10 @@ require (
 	github.com/go-xorm/xorm v0.7.1
 	github.com/golang/mock v1.2.0
 	github.com/golang/protobuf v1.3.0 // indirect
+	github.com/gopherjs/gopherjs v0.0.0-20190309154008-847fc94819f9 // indirect
 	github.com/mattn/go-isatty v0.0.6 // indirect
-	github.com/smartystreets/goconvey v0.0.0-20190222223459-a17d461953aa
+	github.com/smartystreets/assertions v0.0.0-20190215210624-980c5ac6f3ac // indirect
+	github.com/smartystreets/goconvey v0.0.0-20190306220146-200a235640ff
 	github.com/spf13/viper v1.3.1
 	golang.org/x/crypto v0.0.0-20181203042331-505ab145d0a9
 	gopkg.in/go-playground/validator.v8 v8.18.2 // indirect
