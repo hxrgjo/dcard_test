@@ -13,13 +13,7 @@ type ArticleHandler struct {
 	service service.ArticleService
 }
 
-func NewArticleHandler() ArticleHandler {
-	return ArticleHandler{
-		service: service.NewArticleService(),
-	}
-}
-
-func NewArticleHandlerWithService(service service.ArticleService) ArticleHandler {
+func NewArticleHandler(service service.ArticleService) ArticleHandler {
 	return ArticleHandler{
 		service: service,
 	}

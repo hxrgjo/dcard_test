@@ -24,7 +24,7 @@ func TestNewArticle(t *testing.T) {
 		mock.EXPECT().Create("test", "jsonContentccc", int64(1)).Return(nil)
 
 		// new article handler
-		h := NewArticleHandlerWithService(mock)
+		h := NewArticleHandler(mock)
 
 		// prepare router
 		router := gin.Default()
@@ -65,7 +65,7 @@ func TestGetArticles(t *testing.T) {
 		mock.EXPECT().List().Return(mockResponse, nil)
 
 		// new article handler
-		h := NewArticleHandlerWithService(mock)
+		h := NewArticleHandler(mock)
 
 		// prepare router
 		router := gin.Default()
@@ -99,7 +99,7 @@ func TestLikeArticle(t *testing.T) {
 		mock.EXPECT().Like(int64(1), int64(1)).Return(nil)
 
 		// new article handler
-		h := NewArticleHandlerWithService(mock)
+		h := NewArticleHandler(mock)
 
 		// prepare router
 		router := gin.Default()

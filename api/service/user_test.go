@@ -19,7 +19,7 @@ func TestSignUp(t *testing.T) {
 		defer ctrl.Finish()
 		mock := mock.NewMockUserRepository(ctrl)
 		mock.EXPECT().CreateUser("test@gmail.com", gomock.Any(), "test")
-		r := service.NewUserServiceWithRepository(mock)
+		r := service.NewUserService(mock)
 
 		Convey("assert sign up result", func() {
 			err := r.SignUp("test@gmail.com", "1234", "test")
@@ -41,7 +41,7 @@ func TestSignIn(t *testing.T) {
 				PasswordDigest: "$2a$10$lIWDJKBOtLSg6eRVwYosaeFwY6m5.1sH5vzovQctwPxBXynkxGSWS",
 			},
 			nil)
-		r := service.NewUserServiceWithRepository(mock)
+		r := service.NewUserService(mock)
 
 		Convey("assert sign in result", func() {
 			_, err := r.SignIn("test@gmail.com", "1234")

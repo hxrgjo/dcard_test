@@ -3,6 +3,8 @@ package router
 import (
 	"api/auth"
 	"api/handler"
+	"api/repository"
+	"api/service"
 	"net/http"
 	"strings"
 
@@ -14,8 +16,15 @@ func Get(r *gin.Engine) {
 		c.String(http.StatusOK, "OK")
 	})
 
-	articleHandler := handler.NewArticleHandler()
-	userHandler := handler.NewUserHandler()
+	// new article handler
+	articleRepository := repository.NewArticleRepository()
+	articleService := service.NewArticleService(articleRepository)
+	articleHandler := handler.NewArticleHandler(articleService)
+
+	// new user handler
+	userRepository := repository.NewUserRepository()
+	userService := service.NewUserService(userRepository)
+	userHandler := handler.NewUserHandler(userService)
 
 	groupAPI := r.Group("/api")
 	groupArticle := groupAPI.Group("/articles")

@@ -18,7 +18,7 @@ func TestCreate(t *testing.T) {
 		mock := mock.NewMockArticleRepository(ctrl)
 		mock.EXPECT().Insert("test", "content", int64(1)).Return(nil)
 
-		r := service.NewArticleServiceWithRepository(mock)
+		r := service.NewArticleService(mock)
 		err := r.Create("test", "content", 1)
 		So(err, ShouldBeNil)
 	})
@@ -36,7 +36,7 @@ func TestList(t *testing.T) {
 		}}
 		mock.EXPECT().List().Return(mockResult, nil)
 
-		r := service.NewArticleServiceWithRepository(mock)
+		r := service.NewArticleService(mock)
 		actual, err := r.List()
 		So(err, ShouldBeNil)
 		So(actual, ShouldResemble, []service.ArticleResponse{{
@@ -56,7 +56,7 @@ func TestLike(t *testing.T) {
 		mock := mock.NewMockArticleRepository(ctrl)
 		mock.EXPECT().Like(int64(1), int64(1)).Return(nil)
 
-		r := service.NewArticleServiceWithRepository(mock)
+		r := service.NewArticleService(mock)
 		err := r.Like(1, 1)
 		So(err, ShouldBeNil)
 	})

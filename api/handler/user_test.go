@@ -21,7 +21,7 @@ func TestSignUp(t *testing.T) {
 		mock.EXPECT().SignUp("test@gmail.com", "1234", "test").Return(nil)
 
 		// new user handler
-		h := NewUserHandlerWithService(mock)
+		h := NewUserHandler(mock)
 
 		// prepare router
 		router := gin.Default()
@@ -61,7 +61,7 @@ func TestSignIn(t *testing.T) {
 		mock.EXPECT().SignIn("test@gmail.com", "1234").Return("token", nil)
 
 		// new user handler
-		h := NewUserHandlerWithService(mock)
+		h := NewUserHandler(mock)
 
 		// prepare router
 		router := gin.Default()

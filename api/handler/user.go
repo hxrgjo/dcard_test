@@ -12,13 +12,7 @@ type UserHandler struct {
 	service service.UserService
 }
 
-func NewUserHandler() UserHandler {
-	return UserHandler{
-		service: service.NewUserService(),
-	}
-}
-
-func NewUserHandlerWithService(service service.UserService) UserHandler {
+func NewUserHandler(service service.UserService) UserHandler {
 	return UserHandler{
 		service: service,
 	}

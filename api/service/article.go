@@ -17,13 +17,7 @@ type ArticleService interface {
 	Like(id int64, userID int64) (err error)
 }
 
-func NewArticleService() ArticleService {
-	return &articleService{
-		repository: repository.NewArticleRepository(),
-	}
-}
-
-func NewArticleServiceWithRepository(repository repository.ArticleRepository) ArticleService {
+func NewArticleService(repository repository.ArticleRepository) ArticleService {
 	return &articleService{
 		repository: repository,
 	}

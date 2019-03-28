@@ -13,13 +13,7 @@ type UserService interface {
 	SignIn(email, password string) (token string, err error)
 }
 
-func NewUserService() UserService {
-	return &userService{
-		repository: repository.NewUserRepository(),
-	}
-}
-
-func NewUserServiceWithRepository(repository repository.UserRepository) UserService {
+func NewUserService(repository repository.UserRepository) *userService {
 	return &userService{
 		repository: repository,
 	}
