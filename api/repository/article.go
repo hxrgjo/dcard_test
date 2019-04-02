@@ -13,7 +13,7 @@ type ArticleRepository interface {
 	Like(id int64, userID int64) (err error)
 }
 
-func NewArticleRepository() ArticleRepository {
+func NewArticleRepository() *articleRepository {
 	return &articleRepository{
 		db: model.GetDB(),
 	}

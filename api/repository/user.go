@@ -12,7 +12,7 @@ type UserRepository interface {
 	FindByEmail(email string) (user model.User, err error)
 }
 
-func NewUserRepository() UserRepository {
+func NewUserRepository() *userRepository {
 	return &userRepository{
 		db: model.GetDB(),
 	}

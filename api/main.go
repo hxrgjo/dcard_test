@@ -2,11 +2,11 @@ package main
 
 import (
 	"api/auth"
+	"api/handler"
 	"api/model"
-	"api/router"
-	"fmt"
+	"api/repository"
+	"api/service"
 
-	"github.com/gin-gonic/gin"
 	_ "github.com/go-sql-driver/mysql"
 )
 
@@ -35,12 +35,21 @@ func main() {
 	// set jwt secret
 	auth.SetSecret(config.JWTSecret)
 
-	// init api server
-	initServer()
+	// run api server
+	run()
 }
 
-func initServer() {
-	r := gin.Default()
-	router.Get(r)
-	r.Run(fmt.Sprintf(":%d", config.Port)) // listen and serve on 0.0.0.0:8080
+func run() {
+	// new user handler
+	userRepository := repository.NewUserRepository()
+	userService := service.NewUserService(userRepository)
+	userHandler := handler.NewUserHandler(userService)
+
+	// new article handler
+	articleRepository := repository.NewArticleRepository()
+	articleService := service.NewArticleService(articleRepository)
+	articleHandler := handler.NewArticleHandler(articleService)
+
+	server := NewServer(userHandler, articleHandler)
+	server.Run()
 }
