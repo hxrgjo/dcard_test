@@ -15,7 +15,7 @@ require (
 	github.com/smartystreets/assertions v0.0.0-20190215210624-980c5ac6f3ac // indirect
 	github.com/smartystreets/goconvey v0.0.0-20190306220146-200a235640ff
 	github.com/spf13/viper v1.3.1
-	go.uber.org/dig v1.7.0
+	go.uber.org/dig v1.7.1-0.20190327003609-4cc9f8898fe3
 	golang.org/x/crypto v0.0.0-20181203042331-505ab145d0a9
 	gopkg.in/go-playground/validator.v8 v8.18.2 // indirect
 )

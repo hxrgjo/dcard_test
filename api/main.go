@@ -7,6 +7,8 @@ import (
 	"api/repository"
 	"api/service"
 
+	"go.uber.org/dig"
+
 	_ "github.com/go-sql-driver/mysql"
 )
 
@@ -39,17 +41,21 @@ func main() {
 	run()
 }
 
-func run() {
+func run() error {
+	container := dig.New()
 	// new user handler
-	userRepository := repository.NewUserRepository()
-	userService := service.NewUserService(userRepository)
-	userHandler := handler.NewUserHandler(userService)
-
+	container.Provide(repository.NewUserRepository, dig.As(new(repository.UserRepository)))
+	container.Provide(service.NewUserService, dig.As(new(service.UserService)))
+	container.Provide(handler.NewUserHandler)
 	// new article handler
-	articleRepository := repository.NewArticleRepository()
-	articleService := service.NewArticleService(articleRepository)
-	articleHandler := handler.NewArticleHandler(articleService)
+	container.Provide(repository.NewArticleRepository, dig.As(new(repository.ArticleRepository)))
+	container.Provide(service.NewArticleService, dig.As(new(service.ArticleService)))
+	container.Provide(handler.NewArticleHandler)
 
-	server := NewServer(userHandler, articleHandler)
-	server.Run()
+	err := container.Invoke(func(userHandler handler.UserHandler, articleHandler handler.ArticleHandler) {
+		server := NewServer(userHandler, articleHandler)
+		server.Run()
+	})
+
+	return err
 }
