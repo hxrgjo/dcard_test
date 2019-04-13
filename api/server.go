@@ -22,6 +22,7 @@ func NewServer(userHandler handler.UserHandler, articleHandler handler.ArticleHa
 	}
 }
 
+// SetHandler setting the routes
 func (s *Server) SetHandler() {
 	groupAPI := s.engine.Group("/api")
 	groupUser := groupAPI.Group("/users")
@@ -29,11 +30,12 @@ func (s *Server) SetHandler() {
 	groupUser.POST("/login", s.userHandler.SignIn)
 
 	groupArticle := groupAPI.Group("/articles").Use(middleware.AuthMiddleware)
-	groupArticle.POST("/", s.articleHandler.NewArticle)
-	groupArticle.GET("/", s.articleHandler.GetArticles)
+	groupArticle.POST("", s.articleHandler.NewArticle)
+	groupArticle.GET("", s.articleHandler.GetArticles)
 	groupArticle.PATCH("/:id/like", s.articleHandler.LikeArticle)
 }
 
+// Run setting the routes and run api server
 func (s *Server) Run() {
 	s.SetHandler()
 	s.engine.Run(fmt.Sprintf(":%d", config.Port)) // listen and serve on 0.0.0.0:8080
